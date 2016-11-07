@@ -48,6 +48,42 @@ function getDoctors(){
 }
 
 
+$emailErr = ""; 
+
+global $email; 
+
+$email = ""; 
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    
+   $valid = true;
+    if(empty($_POST["email"])){
+        
+        $emailErr = "Email is required";
+        $valid = false;
+    } else {
+        
+        $email = test_input($_POST["email"]);
+    }   
+    
+    if($valid){
+        if(isset($_POST['order'])){
+        $_SESSION["email"] = $_POST["email"];
+        header('location: successpage.php');
+        exit();
+    }
+    
+    }
+}
+
+function test_input($data){
+    
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data; 
+}
+    
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +92,7 @@ function getDoctors(){
         <title> Payment Process Page </title>
     </head>
     <body>
-    <form method = "POST">
+    <form action = "<?php echo  htmlspecialchars($_SERVER["successpage.php"]); ?>" method = "POST" >
         
         First Name: <input type = "text" name = "fname" value = "<?$user['firstname']?>" />
         </br>
@@ -89,7 +125,7 @@ function getDoctors(){
         </br>
         </br>
         
-        Email: <input type = "email" name = "mail">
+        Email: <input type = "email" name = "email">
         
         <h4>If on hospital, state which floor and room number</h4>
         Floor: <select name = "floor">

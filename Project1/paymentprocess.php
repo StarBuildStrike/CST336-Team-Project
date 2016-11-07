@@ -92,6 +92,12 @@ function test_input($data){
         <title> Payment Process Page </title>
     </head>
     <body>
+        
+        <h1>Order Form</h1>
+        </br>
+        *Required Field
+        </br> 
+        </br>
     <form action = "<?php echo  htmlspecialchars($_SERVER["successpage.php"]); ?>" method = "POST" >
         
         First Name: <input type = "text" name = "fname" value = "<?$user['firstname']?>" />
@@ -126,7 +132,7 @@ function test_input($data){
         </br>
         
         Email: <input type = "email" name = "email">
-        
+        <span class = "error">* <?php echo $emailErr; ?> </span>
         <h4>If on hospital, state which floor and room number</h4>
         Floor: <select name = "floor">
             <option value = "">Choose One</option>
